@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int plusBit = 0;
+        for (auto iter = digits.rbegin(); iter != digits.rend(); iter++) {
+            if (*iter == 9) {
+                plusBit = 1;
+                *iter = 0;
+            } else {
+                plusBit = 0;
+                *iter += 1;
+                break;
+            }
+        }
+        if (plusBit) {
+            digits.insert(digits.begin() ,plusBit);
+        }
+        return digits;
+    }
+};
