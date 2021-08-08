@@ -1,0 +1,33 @@
+本周整体刚开班，工作 刷题还没有平衡好，整体刷题结果不好，感觉木桶等夹逼没有弄明白
+下周正式开始，希望老师讲解知识点的时候能更详细些，后续类似dp等算法一直没有完全弄懂，希望能攻克！！！
+
+这个代码有点疑问，麻烦帮忙看下
+leetcode88
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        if (n == 0) {
+            return;
+        }
+        int result = m + n;
+        vector<int> num;
+        num.reserve(result);
+        int i = 0;
+        int j = 0;
+        for (int k = 0; k < result; k++) {
+            if (i == m) {
+                num[k] = nums2[j++];
+            } else if (j == n) {
+                num[k] = nums1[i++];
+            } else if (nums1[i] > nums2[j]) {
+                num[k] = nums2[j++];
+            } else {
+                num[k] = nums1[i++];
+            }
+        }
+	/*此处使用nums1.assign(num.begin(), num.end())，结果始终为空，不理解*/
+        for (int k = 0; k < result;k++) {
+            nums1[k] = num[k];
+        }
+    }
+};
