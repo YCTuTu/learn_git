@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        priority_queue<int,  vector<int>, greater<int>>queue;
+        for (auto iter : arr) {
+            queue.push(iter);
+        }
+        vector<int>result;
+        while(!queue.empty() && k--) {
+            result.push_back(queue.top());
+            queue.pop();
+        }
+        return result;
+    }
+};

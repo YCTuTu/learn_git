@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        priority_queue<long, vector<long>, greater<long>> queue;
+        unordered_set<long>mySet;
+        vector<int> ratio = {2, 3, 5};
+        int reult;
+        queue.push(1L);
+        mySet.insert(1L);
+        for (int i = 1; i <= n; i++) {
+            long cur = queue.top();
+            reult = static_cast<int>(cur);
+            queue.pop();
+            for (auto iter : ratio) {
+                long re = cur * iter;
+                if (!mySet.count(re)) {
+                    mySet.insert(re);
+                    queue.push(re);
+                }
+            }
+        }
+        return reult;
+    }
+};
