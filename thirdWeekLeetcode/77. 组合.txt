@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> result;
+        vector<int> tempData;
+        dfs(1, n, k, result, tempData);
+        return result;
+    }
+    void dfs(int i, int n, int k, vector<vector<int>>&result, vector<int> &tempData) {
+        if (i > n || tempData.size() == k) {
+            return;
+        }
+        tempData.push_back(i);
+        if (tempData.size() == k) {
+            result.push_back(tempData);
+        }
+        dfs(i + 1, n, k, result, tempData);
+        tempData.pop_back();
+        dfs(i + 1, n, k, result, tempData);
+    }
+};

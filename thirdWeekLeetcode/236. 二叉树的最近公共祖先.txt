@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+         vector<TreeNode *> pNodePath;
+         vector<TreeNode *>qNodePath;
+         vector<TreeNode *>tempPath;
+         TreeNode *result;
+         dfs(root, tempPath, pNodePath, p);
+         tempPath.clear();
+         dfs(root, tempPath, qNodePath, q);
+         int i = 0;
+         int j = pNodePath.size() < qNodePath.size() ? pNodePath.size() : qNodePath.size(); 
+         while (i < j && pNodePath[i] == qNodePath[i]) {
+             i++;
+         }
+         return pNodePath[i - 1];
+    }
+    void dfs(TreeNode* root, vector<TreeNode *> &tempPath,vector<TreeNode *> &nodePath, TreeNode* targetNode) {
+        if (!root) {
+            return;
+        }
+        tempPath.push_back(root);
+        if (root == targetNode) {
+            nodePath = tempPath;
+            return;
+        }
+        dfs(root->left, tempPath, nodePath, targetNode);
+        dfs(root->right, tempPath, nodePath, targetNode);
+        tempPath.pop_back();
+    }
+};

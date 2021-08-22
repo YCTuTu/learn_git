@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> tempData;
+        unordered_map<int, int>myMap;
+        for (auto num : nums) {
+            myMap[num]++;
+        }
+        dfs(0, myMap, nums, result, tempData);
+        return result;
+    }
+    void dfs(int i, unordered_map<int,int>index, vector<int>& nums, vector<vector<int>> &result, vector<int> &tempData) {
+        if (i == nums.size()) {
+            result.push_back(tempData);
+            return;
+        }
+        for (auto num : nums) {
+            if (index[num] >= 1) {
+                tempData.push_back(num);
+                index[num]--;
+                dfs(i + 1, index, nums, result, tempData);
+                tempData.pop_back();
+                index[num]++;
+            }
+        }
+    }
+};
