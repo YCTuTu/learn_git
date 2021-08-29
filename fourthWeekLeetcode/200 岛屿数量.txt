@@ -1,0 +1,45 @@
+const int MAXPOSDIRECT = 4;
+int dx[MAXPOSDIRECT] = {-1, 0, 1, 0};
+int dy[MAXPOSDIRECT] = {0, 1, 0, -1};
+
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid)
+    {
+        int result = 0;
+        if (grid.empty()) {
+            return result;
+        }
+        const int rows = grid.size();
+        const int cols = grid[0].size();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == '1') {
+                    result++;
+                    grid[i][j] = '0';
+                    dfs(grid, i, j, rows, cols);
+                }
+            }
+        }
+        return result;
+    }
+
+    void dfs(vector<vector<char>>& grid, int row, int col, int rows, int cols)
+    {
+        for (int i = 0; i < MAXPOSDIRECT; i++) {
+            if (!isLegal(row + dx[i], col + dy[i], rows, cols) || grid[row + dx[i]][col + dy[i]] == '0') {
+                continue;
+            }
+            grid[row + dx[i]][col + dy[i]] = '0';
+            dfs(grid, row + dx[i], col + dy[i], rows, cols);
+        }
+    }
+
+    bool isLegal(int x, int y, int rows, int cols)
+    {
+        if (x >= 0 && x < rows && y >= 0 && y < cols) {
+            return true;
+        }
+        return false;
+    }
+};

@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int maxBenifit = 0;
+        int minPrice = INT_MAX;
+        for (int num : prices) {
+            maxBenifit = max(maxBenifit, num - minPrice);
+            minPrice = min(minPrice, num);
+        }
+        return maxBenifit;
+    }
+};
